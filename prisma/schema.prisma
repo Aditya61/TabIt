@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  name      String
+  phone     String     @unique
+  password  String // store hashed
+  creditors Creditor[]
+  createdAt DateTime   @default(now())
+}
+
+model Creditor {
+  id          String    @id @default(cuid())
+  name        String
+  phone       String
+  outstanding Float     @default(0)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  credits     Credit[]
+  payments    Payment[]
+  createdAt   DateTime  @default(now())
+}
+
+model Credit {
+  id         String   @id @default(cuid())
+  creditorId String
+  amount     Float
+  date       DateTime @default(now())
+  items      Item[]
+  creditor   Creditor @relation(fields: [creditorId], references: [id])
+}
+
+model Item {
+  id         String @id @default(cuid())
+  creditId   String
+  name       String
+  quantity   Float
+  totalPrice Float
+  credit     Credit @relation(fields: [creditId], references: [id])
+}
+
+model Payment {
+  id         String   @id @default(cuid())
+  creditorId String
+  amount     Float
+  method     String   @default("CASH")
+  date       DateTime @default(now())
+  creditor   Creditor @relation(fields: [creditorId], references: [id])
+}
