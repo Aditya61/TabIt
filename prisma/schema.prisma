@@ -35,12 +35,14 @@ model Creditor {
 }
 
 model Credit {
-  id         String   @id @default(cuid())
-  creditorId String
-  amount     Float
-  date       DateTime @default(now())
-  items      Item[]
-  creditor   Creditor @relation(fields: [creditorId], references: [id])
+  id           String   @id @default(cuid())
+  creditorId   String
+  amtRemaining Float
+  amtPaid      Float
+  status       String   @default("PENDING")
+  date         DateTime @default(now())
+  items        Item[]
+  creditor     Creditor @relation(fields: [creditorId], references: [id])
 }
 
 model Item {

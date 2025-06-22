@@ -7,8 +7,8 @@ import { fail } from '@sveltejs/kit';
 export const actions = {
     default: async ({ request }) => {
         const formData = await request.formData();
-        const name = formData.get('name');
-        const phone = formData.get('phone');
+        const name = formData.get('name')?.trim();
+        const phone = formData.get('phone')?.trim();
         const password = formData.get('password');
 
         // Form Data Validation
