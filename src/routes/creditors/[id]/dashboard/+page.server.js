@@ -23,6 +23,15 @@ export async function load({ params, locals }) {
                 select: {
                     id: true,
                     amtRemaining: true,
+                    date: true,
+                    status: true
+                }
+            },
+            payments: {
+                orderBy: { date: 'desc' },
+                select: {
+                    amount: true,
+                    method: true,
                     date: true
                 }
             }
