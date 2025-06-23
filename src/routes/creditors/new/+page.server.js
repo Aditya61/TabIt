@@ -10,7 +10,7 @@ export const actions = {
 
         const userId = locals.user?.id;
         if (!userId) {
-            return fail(401, {message: "Unauthorized!"});
+            throw redirect(302, '/login');
         }
 
         if (!name || !phone) {

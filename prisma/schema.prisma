@@ -38,7 +38,7 @@ model Credit {
   id           String   @id @default(cuid())
   creditorId   String
   amtRemaining Float
-  amtPaid      Float
+  amtPaid      Float    @default(0)
   status       String   @default("PENDING")
   date         DateTime @default(now())
   items        Item[]
