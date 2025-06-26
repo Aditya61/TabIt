@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { prisma } from '$lib/server/prisma.js';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { generateToken } from '$lib/server/auth';
 import { serialize } from 'cookie';
 
@@ -32,9 +32,6 @@ export const actions = {
             maxAge: remember ? 60 * 60 * 24 * 30 : 60 * 60
         });
 
-        return { 
-            status: 200,
-            success: "Logged in successfully" 
-        };
+        return redirect(303, "/creditors");
     }
 };

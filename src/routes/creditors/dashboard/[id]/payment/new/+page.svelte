@@ -17,7 +17,7 @@
         </select>
     </label>
 
-    <button type="submit">Submit</button>
+    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 absolute bottom-0 z-10 text-md text-cyan-900 font-semibold" type="submit">Submit</button>
 </form>
 
 {#if form?.success}

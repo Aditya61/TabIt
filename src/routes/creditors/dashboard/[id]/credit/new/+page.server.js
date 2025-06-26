@@ -51,6 +51,6 @@ export const actions = {
             return fail(500, {message: "Credit Entry Failed!"})
         }
 
-        throw redirect(303, `/creditors/${creditorId}/dashboard`);
+        throw redirect(303, `/creditors/dashboard/${creditorId}`);
     }
 };
