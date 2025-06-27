@@ -6,6 +6,17 @@ export async function load({ params }) {
     const creditId = params.creditId;
     const creditorId = params.id;
 
+    const creditor = await prisma.creditor.findFirst({
+        where: {
+            id: creditorId
+        },
+        select: {
+            name: true,
+            phone: true,
+            outstanding: true
+        }
+    })
+
     const credit = await prisma.credit.findFirst({
         where: {
             id: creditId,
@@ -31,5 +42,5 @@ export async function load({ params }) {
         return fail(404, {message: "Credit Not Found!"})
     }
 
-    return { credit };
+    return { credit, name: creditor.name, phone: creditor.phone, outstanding: creditor.outstanding };
 }
