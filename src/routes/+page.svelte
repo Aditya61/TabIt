@@ -4,16 +4,14 @@
     export let data;
 
     onMount(() => {
-        setTimeout(redirectHome, 2000);
-    })
-
-    function redirectHome() {
-        if (data.user) {
-	    	window.location.href = "/creditors";
-		} else {
-    		window.location.href = "/login";
-		}
-    }
+        setTimeout(() => {
+            if (data.user) {
+	        	window.location.href = "/creditors";
+		    } else {
+    	    	window.location.href = "/login";
+		    }
+        }, 2000);
+    });
 </script>
 
 <div class="my-52 w-full flex items-center justify-center">

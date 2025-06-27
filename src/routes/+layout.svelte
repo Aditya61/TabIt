@@ -1,6 +1,8 @@
 <script>
 	import '../app.css';
 	import { page } from "$app/state";
+	import { fly, fade } from 'svelte/transition';
+	import { isSettingsOpen } from '$lib/stores/settingsPanel.js';
 
 	let { data, children } = $props();
 
@@ -9,17 +11,17 @@
 		window.location.href = '/login';
 	}
 </script>
-<!-- {#if data.user}
-	<a href="/logout">Logout</a>
-{/if} -->
 
 <header class="bg-slate-50 border-b-1 border-gray-200 w-full h-[72px] px-3 py-4 flex justify-center items-center">
-	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-		viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
-		stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings absolute left-4 drop-shadow-md">
-		<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
-		<circle cx="12" cy="12" r="3"/>
-	</svg>
+	<!-- svelte-ignore a11y_consider_explicit_label -->
+	<button class="absolute left-4 z-50" onclick={() => $isSettingsOpen = true}>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+			viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+			stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings drop-shadow-md">
+			<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+			<circle cx="12" cy="12" r="3"/>
+		</svg>
+	</button>
 	{#if page.url.pathname === "/creditors"}
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">All Creditors</h1>
 		<!-- svelte-ignore a11y_consider_explicit_label -->
@@ -54,5 +56,20 @@
 	{/if}
 
 </header>
+
+{#if $isSettingsOpen}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class={"fixed inset-0 bg-black/50 z-40"} in:fade={{duration: 500}} out:fade={{duration: 500}} onclick={() => $isSettingsOpen = false}></div>
+
+	<div class="fixed left-0 top-0 h-full w-64 bg-white shadow-xl z-50" in:fly={{x: -300, duration: 500}} out:fly={{x: -300, duration: 500}}>
+		<div class="p-4">
+			<h2 class="text-xl font-bold text-center py-2 shadow-sm rounded-md mb-4">Settings</h2>
+			{#if data.user}
+				<a class="text-lg font-semibold" href="/logout">Logout</a>
+			{/if}
+		</div>
+	</div>
+{/if}
 
 {@render children()}

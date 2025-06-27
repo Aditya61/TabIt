@@ -4,6 +4,13 @@ import { fail, redirect } from '@sveltejs/kit';
 import { generateToken } from '$lib/server/auth';
 import { serialize } from 'cookie';
 
+/** @type {import('./$types').PageLoad} */
+export async function load({ locals }) {
+    if (locals.user) {
+        redirect(303, '/creditors');
+    }
+}
+
 /** @type {import('./$types').Actions} */
 export const actions = {
     default: async ({ request, cookies }) => {
