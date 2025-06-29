@@ -4,6 +4,17 @@
 	import { fly, fade } from 'svelte/transition';
 	import { isSettingsOpen } from '$lib/stores/settingsPanel.js';
 
+	if ('serviceworker' in navigator) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('/service-worker.js')
+			.then(reg => {
+				console.log("Service worker registered:", reg.scope);
+			}).catch(err => {
+				console.error("Service worker registration failed", err);
+			});
+		});
+	}
+
 	let { data, children } = $props();
 
 	async function logout() {
@@ -12,16 +23,24 @@
 	}
 </script>
 
+<svelte:head>
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<meta name="theme-color" content="#4a148c" />
+	<link rel="apple-touch-icon" href="icons/icon-192.png" />
+</svelte:head>
+
 <header class="bg-slate-50 border-b-1 border-gray-200 w-full h-[72px] px-3 py-4 flex justify-center items-center">
 	<!-- svelte-ignore a11y_consider_explicit_label -->
-	<button class="absolute left-4 z-50" onclick={() => $isSettingsOpen = true}>
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-			viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
-			stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings drop-shadow-md">
-			<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
-			<circle cx="12" cy="12" r="3"/>
-		</svg>
-	</button>
+	{#if page.url.pathname !== "/offline"}
+		<button class="absolute left-4 z-50" onclick={() => $isSettingsOpen = true}>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+				viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+				stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings drop-shadow-md">
+				<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+				<circle cx="12" cy="12" r="3"/>
+			</svg>
+		</button>
+	{/if}
 	{#if page.url.pathname === "/creditors"}
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">All Creditors</h1>
 		<!-- svelte-ignore a11y_consider_explicit_label -->
@@ -39,6 +58,8 @@
 		</a>
 	{:else if page.url.pathname === "/"}
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">Tabit</h1>
+	{:else if page.url.pathname === "/offline"}
+		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">You are Offline</h1>
 	{:else if page.url.pathname === "/login"}
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">Login</h1>
 	{:else if page.url.pathname === "/signup"}
