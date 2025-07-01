@@ -1,17 +1,15 @@
 <script>
-	import { onMount } from 'svelte';
-
+    import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
     export let data;
 
     onMount(() => {
-        setTimeout(() => {
-            if (data.user) {
-	        	window.location.href = "/creditors";
-		    } else {
-    	    	window.location.href = "/login";
-		    }
-        }, 2000);
-    });
+        if (data?.user) {
+            goto('/creditors');
+        } else {
+            goto('/login');
+        }
+    })
 </script>
 
 <div class="my-52 w-full flex items-center justify-center">

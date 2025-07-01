@@ -1,5 +1,20 @@
 <script>
+    import { onMount, onDestroy } from 'svelte';
+    import { goto } from '$app/navigation';
     export let data;
+
+    onMount(() => {
+        const handleBack = (event) => {
+            event.preventDefault();
+            goto('/creditors');
+        };
+
+        window.addEventListener('popstate', handleBack);
+
+        onDestroy(() =>  {
+            window.removeEventListener('popstate', handleBack);
+        });
+    });
 
     const creditor = data.creditor;
     let visible = "Credits";

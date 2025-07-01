@@ -68,14 +68,11 @@ export const actions = {
                     }
                 }
             })
-
-            return {
-                status: 200,
-                success: "Payment Successful."
-            }
         } catch(err) {
             console.log(err.message);
             return fail(500, {message: "Payment Failed!"});
         }
+
+        throw redirect(303, `/creditors/dashboard/${creditorId}`);
     }
 };

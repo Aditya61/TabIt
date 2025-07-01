@@ -1,5 +1,20 @@
 <script>
+    import { onMount, onDestroy } from 'svelte';
+    import { goto } from '$app/navigation';
     export let data;
+
+    onMount(() => {
+        const handleBack = (event) => {
+            event.preventDefault();
+            goto('/');
+        };
+
+        window.addEventListener('popstate', handleBack);
+
+        onDestroy(() =>  {
+            window.removeEventListener('popstate', handleBack);
+        });
+    });
 
     let searchString = "";
 
@@ -35,5 +50,5 @@
         {/each}
     </ul>
 {:else}
-    <h1>No Creditors Found!</h1>
+    <h2 class="p-4 text-lg font-semibold text-center">No Creditors Found! <br />Add using the button on the top right corner</h2>
 {/if}
