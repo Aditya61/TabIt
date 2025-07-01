@@ -6,7 +6,7 @@
     onMount(() => {
         const handleBack = (event) => {
             event.preventDefault();
-            goto(`/creditors/dashboard/${creditor.id}`);
+            goto(`/creditors/dashboard/${data?.creditor.id}`);
         };
 
         window.addEventListener('popstate', handleBack);
@@ -24,11 +24,17 @@
     function generateMessage() {
         let message = "";
         message += `Itemized Bill for ${name} \nDate: ${new Date(credit.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})}\n\n`;
-        const itemString = credit.items.map(item => `${item.name} (${item.quantity})  -  ₹ ${item.totalPrice}`).join('\n');
+        let itemString;
+        credit.items.forEach((item, index) => {
+            const itemName = `${item.name} (${item.quantity})`.padEnd(25, " ");
+            const itemPrice = `- ₹ ${item.totalPrice}`;
+            itemString += `${itemName}${itemPrice}\n`
+        });
         message += itemString;
-        message += `\n\nAmount Remaining: ₹ ${credit.amtRemaining}`
-        message += `\nAmount Paid: ₹ ${credit.amtPaid}`
-        message += `\n\nTotal Outstanding: ₹ ${outstanding}`
+        message += `\n\nBilling Amount:`.padEnd(25, " ")+ `₹ ${credit.amtRemaining + credit.amtPaid}`
+        message += `\n\nAmount Paid:`.padEnd(25, " ") +` ₹ ${credit.amtPaid}`
+        message += `\nAmount Remaining:`.padEnd(25, " ") +` ₹ ${credit.amtRemaining}`
+        message += `\n\nTotal Outstanding:`.padEnd(25, " ") +` ₹ ${outstanding}`
         window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     }
 
