@@ -96,9 +96,9 @@ export const actions = {
             console.log("Success");
         } catch(err) {
             console.log(err.message);
-            return fail(500, {message: "Credit deletion failed!"})
+            return fail(500, {message: "Credit deletion failed!"});
         }
 
-        throw redirect(303, `/creditors/dashboard/${creditor.id}`)
+        throw redirect(303, `/creditors/dashboard/${creditor.id}`);
     }
 };

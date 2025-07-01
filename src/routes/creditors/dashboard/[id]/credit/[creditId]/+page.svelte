@@ -28,13 +28,13 @@
         credit.items.forEach((item, index) => {
             const itemName = `${item.name} (${item.quantity})`.padEnd(25, " ");
             const itemPrice = `- ₹ ${item.totalPrice}`;
-            itemString += `${itemName}${itemPrice}\n`
+            itemString += `${itemName}${itemPrice}\n`;
         });
         message += itemString;
-        message += `\n\nBilling Amount:`.padEnd(25, " ")+ `₹ ${credit.amtRemaining + credit.amtPaid}`
-        message += `\n\nAmount Paid:`.padEnd(25, " ") +` ₹ ${credit.amtPaid}`
-        message += `\nAmount Remaining:`.padEnd(25, " ") +` ₹ ${credit.amtRemaining}`
-        message += `\n\nTotal Outstanding:`.padEnd(25, " ") +` ₹ ${outstanding}`
+        message += `\n\nBilling Amount:`.padEnd(25, " ")+ `₹ ${credit.amtRemaining + credit.amtPaid}`;
+        message += `\n\nAmount Paid:`.padEnd(25, " ") +` ₹ ${credit.amtPaid}`;
+        message += `\nAmount Remaining:`.padEnd(25, " ") +` ₹ ${credit.amtRemaining}`;
+        message += `\n\nTotal Outstanding:`.padEnd(25, " ") +` ₹ ${outstanding}`;
         window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     }
 
