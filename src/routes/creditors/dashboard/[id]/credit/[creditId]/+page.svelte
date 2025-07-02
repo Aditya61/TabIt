@@ -24,7 +24,7 @@
     function generateMessage() {
         let message = "";
         message += `Itemized Bill for ${name} \nDate: ${new Date(credit.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})}\n\n`;
-        let itemString;
+        let itemString = "";
         credit.items.forEach((item, index) => {
             const itemName = `${item.name} (${item.quantity})`.padEnd(25, " ");
             const itemPrice = `- ₹ ${item.totalPrice}`;

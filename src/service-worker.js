@@ -1,6 +1,5 @@
 const CACHE_NAME = 'tabit-cache-v1';
 const urlsToCache = [
-    '/',
     '/offline',
     '/manifest.webmanifest',
     '/favicon.png',
@@ -24,17 +23,31 @@ self.addEventListener('activate', event => {
     self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
-    if (event.request.method !== 'GET')
+self.addEventListener('fetch', (event) => {
+    const { request } = event;
+
+    if (request.mode === 'navigate') {
+        event.respondWith(
+            fetch(request)
+                .then((response) => {
+                    const copy = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+                    return response;
+                })
+                .catch(() => caches.match(request))
+        );
         return;
+    }
 
     event.respondWith(
-        caches.match(event.request).then(response => {
-            return (
-                response || fetch(event.request, { redirect: 'follow' }).catch(() => 
-                caches.match('/offline')
-            )
-            );
-        })
+        caches.match(request).then((cachedResponse) => 
+            cachedResponse || fetch(request)
+        )
     );
 });
+
+self.addEventListener('message', (event) =>{
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+})

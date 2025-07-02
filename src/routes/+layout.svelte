@@ -3,17 +3,28 @@
 	import { page } from "$app/state";
 	import { fly, fade } from 'svelte/transition';
 	import { isSettingsOpen } from '$lib/stores/settingsPanel.js';
+	import { onMount } from 'svelte';
 
-	if ('serviceworker' in navigator) {
-		window.addEventListener('load', () => {
+	onMount(() => {
+		if ('serviceworker' in navigator) {
 			navigator.serviceWorker.register('/service-worker.js')
-			.then(reg => {
-				console.log("Service worker registered:", reg.scope);
-			}).catch(err => {
-				console.error("Service worker registration failed", err);
+				.then(reg => {
+					reg.addEventListener('updatefound', () => {
+						const newSW = reg.installing;
+						newSW?.addEventListener('statechange', () => {
+							if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+								console.log('New version available, refreshing...');
+								newSW.postMessage({ type: 'SKIP_WAITING' });
+							}
+						});
+					});
+				});
+
+			navigator.serviceWorker.addEventListener('controllerchange', () => {
+				window.location.reload();
 			});
-		});
-	}
+		}
+	});
 
 	let { data, children } = $props();
 
