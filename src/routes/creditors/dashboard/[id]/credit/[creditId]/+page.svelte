@@ -33,8 +33,8 @@
         });
         message += itemString;
         message += `\n\nBilling Amount:`.padEnd(25, " ")+ `₹ ${credit.amtRemaining + credit.amtPaid}`;
-        message += `\nPrevious:`.padEnd(25, " ")+ `₹ ${credit.OutstandingLog.prevOutstanding}`;
-        message += `\n\nTotal:`.padEnd(25, " ")+ `₹ ${credit.OutstandingLog.prevOutstanding}`;
+        message += `\nPrevious:`.padEnd(25, " ")+ `₹ ${credit.OutstandingLog[0].prevOutstanding}`;
+        message += `\n\nTotal:`.padEnd(25, " ")+ `₹ ${credit.OutstandingLog[0].nextOutstanding}`;
 
         message += `\n\nCurrent Outstanding:`.padEnd(25, " ") +` ₹ ${outstanding}`;
         window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
