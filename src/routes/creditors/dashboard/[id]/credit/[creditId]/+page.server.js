@@ -35,6 +35,12 @@ export async function load({ params }) {
                     quantity: true,
                     totalPrice: true
                 }
+            },
+            OutstandingLog: {
+                select: {
+                    prevOutstanding: true,
+                    nextOutstanding: true
+                }
             }
         }
     });

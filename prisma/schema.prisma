@@ -35,14 +35,15 @@ model Creditor {
 }
 
 model Credit {
-  id           String   @id @default(cuid())
-  creditorId   String
-  amtRemaining Float
-  amtPaid      Float    @default(0)
-  status       String   @default("PENDING")
-  date         DateTime @default(now())
-  items        Item[]
-  creditor     Creditor @relation(fields: [creditorId], references: [id])
+  id             String           @id @default(cuid())
+  creditorId     String
+  amtRemaining   Float
+  amtPaid        Float            @default(0)
+  status         String           @default("PENDING")
+  date           DateTime         @default(now())
+  items          Item[]
+  creditor       Creditor         @relation(fields: [creditorId], references: [id])
+  OutstandingLog OutstandingLog[]
 }
 
 model Item {
@@ -55,10 +56,21 @@ model Item {
 }
 
 model Payment {
-  id         String   @id @default(cuid())
-  creditorId String
-  amount     Float
-  method     String   @default("CASH")
-  date       DateTime @default(now())
-  creditor   Creditor @relation(fields: [creditorId], references: [id])
+  id             String           @id @default(cuid())
+  creditorId     String
+  amount         Float
+  method         String           @default("CASH")
+  date           DateTime         @default(now())
+  creditor       Creditor         @relation(fields: [creditorId], references: [id])
+  OutstandingLog OutstandingLog[]
+}
+
+model OutstandingLog {
+  id              String   @id @default(cuid())
+  creditId        String?
+  paymentId       String?
+  prevOutstanding Float
+  nextOutstanding Float
+  credit          Credit?  @relation(fields: [creditId], references: [id])
+  payment         Payment? @relation(fields: [paymentId], references: [id])
 }

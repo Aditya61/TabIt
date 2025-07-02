@@ -55,6 +55,17 @@ CREATE TABLE "Payment" (
     CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "OutstandingLog" (
+    "id" TEXT NOT NULL,
+    "creditId" TEXT,
+    "paymentId" TEXT,
+    "prevOutstanding" DOUBLE PRECISION NOT NULL,
+    "nextOutstanding" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "OutstandingLog_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
 
@@ -69,3 +80,9 @@ ALTER TABLE "Item" ADD CONSTRAINT "Item_creditId_fkey" FOREIGN KEY ("creditId") 
 
 -- AddForeignKey
 ALTER TABLE "Payment" ADD CONSTRAINT "Payment_creditorId_fkey" FOREIGN KEY ("creditorId") REFERENCES "Creditor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OutstandingLog" ADD CONSTRAINT "OutstandingLog_creditId_fkey" FOREIGN KEY ("creditId") REFERENCES "Credit"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "OutstandingLog" ADD CONSTRAINT "OutstandingLog_paymentId_fkey" FOREIGN KEY ("paymentId") REFERENCES "Payment"("id") ON DELETE SET NULL ON UPDATE CASCADE;

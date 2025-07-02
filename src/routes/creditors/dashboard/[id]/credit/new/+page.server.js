@@ -26,6 +26,10 @@ export const actions = {
             return sum + item.totalPrice;
         }, 0)
 
+        const creditor = await prisma.creditor.findFirst({ where: { id: creditorId } });
+        const prevOutstanding = creditor.outstanding;
+        const nextOutstanding = creditor.outstanding + amount;
+
         try {
             const credit = await prisma.credit.create({
                 data: {
@@ -33,6 +37,14 @@ export const actions = {
                     creditorId: creditorId,
                     items: {
                         create: items
+                    },
+                    OutstandingLog: {
+                        create: [
+                            {
+                                prevOutstanding: prevOutstanding,
+                                nextOutstanding: nextOutstanding
+                            }
+                        ]
                     }
                 }
             });

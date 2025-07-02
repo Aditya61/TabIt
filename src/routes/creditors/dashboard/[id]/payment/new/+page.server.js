@@ -14,13 +14,25 @@ export const actions = {
             return fail(400, {message: "All fields are required!"});
         }
 
+        const creditor = await prisma.creditor.findFirst({ where: { id: creditorId } });
+        const prevOutstanding = creditor.outstanding;
+        const nextOutstanding = creditor.outstanding + amount;
+
         try {
             // Add payment
             const payment = await prisma.payment.create({
                 data: {
                     creditorId: creditorId,
                     amount: amount,
-                    method: method
+                    method: method,
+                    OutstandingLog: {
+                        create: [
+                            {
+                                prevOutstanding: prevOutstanding,
+                                nextOutstanding: nextOutstanding
+                            }
+                        ]
+                    }
                 }
             })
 
