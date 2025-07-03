@@ -32,7 +32,8 @@ export async function load({ params, locals }) {
                 select: {
                     amount: true,
                     method: true,
-                    date: true
+                    date: true,
+                    OutstandingLog: true
                 }
             }
         }

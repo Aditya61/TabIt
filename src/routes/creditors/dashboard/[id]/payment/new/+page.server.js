@@ -16,7 +16,7 @@ export const actions = {
 
         const creditor = await prisma.creditor.findFirst({ where: { id: creditorId } });
         const prevOutstanding = creditor.outstanding;
-        const nextOutstanding = creditor.outstanding + amount;
+        const nextOutstanding = creditor.outstanding - amount;
 
         try {
             // Add payment

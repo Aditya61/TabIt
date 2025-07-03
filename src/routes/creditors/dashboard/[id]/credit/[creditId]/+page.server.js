@@ -82,6 +82,12 @@ export const actions = {
                 }
             });
 
+            await prisma.OutstandingLog.deleteMany({
+                where: {
+                    creditId: creditId
+                }
+            });
+
             await prisma.creditor.update({
                 where: {
                     id: creditor.id
