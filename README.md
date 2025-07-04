@@ -30,94 +30,65 @@ Access the app live on [Tabit](tabit-git-main-aditya61s-projects.vercel.app)
 ## Project Structure
 
 - prisma
-
     - migrations
         - 20250702152602_init
         - migration_lock.toml
-
     - schema.prisma
-
 - src
-
     - lib
-
         - server
             - auth.js
             - authGuard.js
             - prisma.js
-
         - stores
             - settingsPanel.js
-
         - index.js
-
     - routes
-
         - creditors
-
             - dashboard
-            
                 - [id]
-
                     - credit
-
                         - [creditId]
                             - +page.server.js
                             - +page.svelte
-
                         - new
                             - +page.server.js
                             - +page.svelte
-
                     - payment
-
                         - new
                             - +page.server.js
                             - +page.svelte
-                    
                     - +page.server.js
                     - +page.svelte
-
             - new
                 - +page.server.js
                 - +page.svelte
-
             - +page.server.js
             - +page.svelte
-
         - login
             - +page.server.js
             - +page.svelte
-
         - logout
             - +page.server.js
-
         - offline
             - +page.svelte
-
         - signup
             - +page.server.js
             - +page.svelte
-
         - +layout.server.js
         - +layout.svelte
         - +page.server.js
         - +page.svelte
-
     - app.css
     - app.html
     - hooks.server.js
     - service-worker.js
-
     - static
-
         - icons
             - icon-192.png
             - icon-512.png
-        
         - favicon.png
         - manifest.webmanifest
-    
     - package-lock.json
     - package.json
     - svelte.config.js
@@ -132,7 +103,7 @@ Access the app live on [Tabit](tabit-git-main-aditya61s-projects.vercel.app)
 
 ## License / Credits
 
-This priject is public for portfolio and demonstration purposes only.
+This project is public for portfolio and demonstration purposes only.
 It is **not open source** and **not licensed for reuse, modification, or redistribution**.
 You may view the code for learning or evaluation purposes, but you may not use, copy, modify, or redistribute it without written permission.
 
