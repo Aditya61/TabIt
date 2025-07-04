@@ -1,14 +1,17 @@
 <script>
     export let form;
 
+    // Initializing item
     let items = [
-        { name: '', quantity: '', totalPrice: '' }
+        { name: '', quantity: 1, totalPrice: '' }
     ];
 
+    // Handle new item addition
     function addItem() {
-        items = [...items, { name: '', quantity: '', totalPrice: '' }];
+        items = [...items, { name: '', quantity: 1, totalPrice: '' }];
     }
 
+    // Handle item removal
     function removeItem(index) {
         items = items.filter((_, i) => i!== index);
     }

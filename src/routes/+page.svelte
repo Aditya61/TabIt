@@ -3,6 +3,7 @@
     import { goto } from '$app/navigation';
     export let data;
 
+    // Check for user and redirect to appropriate route
     onMount(() => {
         if (data?.user) {
             goto('/creditors');

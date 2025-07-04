@@ -1,6 +1,8 @@
 import { prisma } from "$lib/server/prisma.js";
 import { fail, redirect } from "@sveltejs/kit";
 
+
+// Loading details of credit including outstanding log
 /** @type {import('./$types').PageLoad} */
 export async function load({ params }) {
     const creditId = params.creditId;
@@ -52,6 +54,7 @@ export async function load({ params }) {
     return { credit, creditor };
 }
 
+// Handle credit deletion
 /** @type {import('./$types').Actions} */
 export const actions = {
     default: async ({ request, params, locals }) => {

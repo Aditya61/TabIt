@@ -5,6 +5,7 @@
 	import { isSettingsOpen } from '$lib/stores/settingsPanel.js';
 	import { onMount } from 'svelte';
 
+	// Register updated service worker if available after each load
 	onMount(() => {
 		if ('serviceworker' in navigator) {
 			navigator.serviceWorker.register('/service-worker.js')

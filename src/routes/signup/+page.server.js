@@ -24,7 +24,7 @@ export const actions = {
         // Hash the password
         const hashedPass = await bcrypt.hash(password, 10);
 
-        // DB Write
+        // DB Write user
         try {
             await prisma.user.create({
                 data: {

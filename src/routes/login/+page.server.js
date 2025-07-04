@@ -23,6 +23,7 @@ export const actions = {
             return fail(400, {message: "All fields are required!"});
         }
 
+        // Check for duplicate user record
         const user = await prisma.user.findUnique({ where: { phone } });
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return fail(401, {message: "Invalid phone or password!"});

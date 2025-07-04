@@ -1,5 +1,6 @@
 import { redirect } from "@sveltejs/kit";
 
+// Delete jwt cookie and redirect to login
 export function GET({ cookies }) {
     cookies.delete('jwt', { 
         path: '/',

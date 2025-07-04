@@ -1,6 +1,7 @@
 import { prisma } from "$lib/server/prisma.js";
 import { fail, redirect } from "@sveltejs/kit";
 
+// Add new creditor
 /** @type {import('./$types').Actions} */
 export const actions = {
     default: async ({ request, locals }) => {
@@ -8,6 +9,7 @@ export const actions = {
         const name = formData.get('name')?.trim();
         const phone = formData.get('phone')?.trim();
 
+        // Validate data
         const userId = locals.user?.id;
         if (!userId) {
             throw redirect(302, '/login');
@@ -17,12 +19,14 @@ export const actions = {
             return fail(400, {message: "All fields are required!"});
         }
 
+        // Check for existing creditor
         const existingCreditor = await prisma.creditor.findFirst({ where: { name, userId } });
         if (existingCreditor) {
             return fail(409, {message: "Creditor exists with same name!"});
         }
 
         try {
+            // Create new creditor
             await prisma.creditor.create({
                 data: {
                     name: name,

@@ -17,8 +17,11 @@
     });
 
     const creditor = data.creditor;
+    
+    // Toggle between credits and payments history
     let visible = "Credits";
 
+    // Generate message for overall pending and partially paid credits and current outstanding
     function generateMessage() {
         let message = "";
         message += `Credit Report for ${creditor.name}\n\n`;
@@ -28,6 +31,7 @@
         window.location.href = `https://wa.me/${creditor.phone}?text=${encodeURIComponent(message)}`;
     }
 
+    // Generate message for individual payments including data from outstanding log
     function generatePaymentMessage(payment) {
         let message = "";
         message += `Payment for ${creditor.name}\n\n`;

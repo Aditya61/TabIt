@@ -1,5 +1,7 @@
 import { verifyToken } from "$lib/server/auth";
 
+
+// Hook to handle token verification and set up locals.user
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
     const token = event.cookies.get('jwt');

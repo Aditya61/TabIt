@@ -8,6 +8,7 @@ export async function load({ params, locals }) {
         throw redirect(302, '/login');
     }
 
+    // Load creditor data including credits, payments and outstanding logs for payments
     const creditor = await prisma.creditor.findFirst({
         where: {
             id: params.id,

@@ -8,10 +8,12 @@ export const actions = {
 
         const creditorId = params.id;
 
+        // Save array of fields
         const names = formData.getAll('items[][name]');
         const quantities = formData.getAll('items[][quantity]');
         const totalPrices = formData.getAll('items[][totalPrice]');
 
+        // Convert it to json
         const items = names.map((_, i) => ({
             name: names[i],
             quantity: parseFloat(quantities[i]),
@@ -19,13 +21,14 @@ export const actions = {
         }));
 
         if (!items?.length) {
-            return fail(400, {message: "All fields are required!"});
+            return fail(400, {message: "At least one item required!"});
         }
 
         const amount = items.reduce((sum, item) => {
             return sum + item.totalPrice;
         }, 0)
 
+        // Calculate previous and updated outstanding for OutstandingLog
         const creditor = await prisma.creditor.findFirst({ where: { id: creditorId } });
         const prevOutstanding = creditor.outstanding;
         const nextOutstanding = creditor.outstanding + amount;

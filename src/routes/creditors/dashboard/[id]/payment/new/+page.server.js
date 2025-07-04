@@ -10,10 +10,12 @@ export const actions = {
 
         const creditorId = params.id;
 
+        // Validate input
         if (!amount) {
             return fail(400, {message: "All fields are required!"});
         }
 
+        // Calculating previous and updated outstanding to add in OutstandingLog table
         const creditor = await prisma.creditor.findFirst({ where: { id: creditorId } });
         const prevOutstanding = creditor.outstanding;
         const nextOutstanding = creditor.outstanding - amount;

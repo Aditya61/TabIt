@@ -21,6 +21,7 @@
     const phone = data?.creditor.phone;
     const outstanding = data?.creditor.outstanding;
 
+    // Generate message for whatsapp redirection for a particular credit
     function generateMessage() {
         let message = "";
         message += `Itemized Bill for ${name} \nDate: ${new Date(credit.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})}\n\n`;
@@ -28,7 +29,7 @@
         let itemString = "";
         credit.items.forEach((item, index) => {
             const itemName = `${item.name} (${item.quantity})`.padEnd(25, " ");
-            const itemPrice = `- ₹ ${item.totalPrice}`;
+            const itemPrice = `₹ ${item.totalPrice}`;
             itemString += `${itemName}${itemPrice}\n`;
         });
         message += itemString;
@@ -40,6 +41,7 @@
         window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     }
 
+    // Toggle display of delete confirmation window
     let toggleDeleteConfirmation = false;
 </script>
 
