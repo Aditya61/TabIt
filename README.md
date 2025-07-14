@@ -89,11 +89,11 @@ Access the app live on [Tabit](tabit-git-main-aditya61s-projects.vercel.app)
             - icon-512.png
         - favicon.png
         - manifest.webmanifest
-    - package-lock.json
-    - package.json
-    - svelte.config.js
-    - tailwind.config.js
-    - vite.config.js
+- package-lock.json
+- package.json
+- svelte.config.js
+- tailwind.config.js
+- vite.config.js
 
 ## Deployment Details
 
