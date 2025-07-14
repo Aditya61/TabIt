@@ -1,6 +1,7 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import { goto } from '$app/navigation';
+    import Loader from '$lib/components/Loader.svelte';
     export let form;
 
     onMount(() => {
@@ -15,7 +16,15 @@
             window.removeEventListener('popstate', handleBack);
         });
     });
+
+    let isSubmitting = false;
 </script>
+
+{#if isSubmitting && !form}
+    <div class="w-full h-full bg-white/50 flex justify-center items-center top-0 left-0 z-20 absolute">
+        <Loader />
+    </div>
+{/if}
 
 <form method="POST">
 
@@ -32,7 +41,7 @@
         <input id="phone" class="border-none shadow-md focus:ring-0 focus:shadow-lg rounded-lg w-58" name="phone" required />
     </div>
 
-    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 absolute bottom-0 z-10 text-md text-cyan-900 font-semibold" type="submit">Add Creditor</button>
+    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 absolute bottom-0 z-10 text-md text-cyan-900 font-semibold" onclick={() => isSubmitting = true} type="submit">Add Creditor</button>
 </form>
 
 {#if form?.success}

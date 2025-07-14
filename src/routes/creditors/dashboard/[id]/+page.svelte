@@ -131,7 +131,7 @@
     </div>
 {/if}
 
-<footer class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 absolute bottom-0 z-10">
+<footer class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10">
     <button class="text-md text-cyan-900 font-semibold" onclick={() => {visible = "Credits"}}>Credits</button>
     <button class="text-md text-cyan-900 font-semibold" onclick={() => {visible = "Payments"}}>Payments</button>
 </footer>

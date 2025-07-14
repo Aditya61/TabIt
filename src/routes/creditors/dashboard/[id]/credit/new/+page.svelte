@@ -1,4 +1,5 @@
 <script>
+    import Loader from '$lib/components/Loader.svelte';
     export let form;
 
     // Initializing item
@@ -15,7 +16,15 @@
     function removeItem(index) {
         items = items.filter((_, i) => i!== index);
     }
+
+    let isSubmitting = false;
 </script>
+
+{#if isSubmitting && !form}
+    <div class="w-full h-full bg-white/50 flex justify-center items-center top-0 left-0 z-20 absolute">
+        <Loader />
+    </div>
+{/if}
 
 <div class="w-full grid grid-cols-8 font-semibold border-b border-gray-400 pb-2 mb-2 text-gray-600 text-center">
     <h2 class="col-span-3">Product</h2>
@@ -40,7 +49,7 @@
     {/each}
     <button class="m-2 p-2 bg-indigo-500 text-xl text-white font-semibold rounded-md shadow-md hover:shadow-lg" type="button" onclick={addItem}>Add</button>
     <br>
-    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 absolute bottom-0 z-10 text-md text-cyan-900 font-semibold" type="submit">Submit</button>
+    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10 text-md text-cyan-900 font-semibold" onclick={() => isSubmitting = true} type="submit">Submit</button>
 </form>
 
 {#if form?.message}

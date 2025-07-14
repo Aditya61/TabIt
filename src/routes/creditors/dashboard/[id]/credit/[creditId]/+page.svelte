@@ -1,6 +1,7 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
     import { goto } from '$app/navigation';
+    import Loader from '$lib/components/Loader.svelte';
     export let data;
 
     onMount(() => {
@@ -43,17 +44,25 @@
 
     // Toggle display of delete confirmation window
     let toggleDeleteConfirmation = false;
+
+    let isSubmitting = false;
 </script>
 
+{#if isSubmitting}
+    <div class="w-full h-full bg-white/50 flex justify-center items-center top-0 left-0 z-40 absolute">
+        <Loader />
+    </div>
+{/if}
+
 {#if toggleDeleteConfirmation}
-    <div class="absolute top-0 left-0 z-40 w-full h-full bg-black/50 flex justify-center items-center">
+    <div class="absolute top-0 left-0 z-20 w-full h-full bg-black/50 flex justify-center items-center">
         <form method="POST">
             <div class="p-4 mx-2 bg-white rounded-lg">
                 <h3 class="py-2 text-md font-semibold">Are you sure you want to delete this credit?</h3>
                 <h4 class="py-2 text-sm font-medium">Note: Any payment done to this credit won't be redistributed.</h4>
                 <div class="grid grid-cols-3 gap-2">
                     <button class="bg-green-600 text-white font-bold text-center rounded-md col-start-2 py-2" onclick={() => { toggleDeleteConfirmation = false; }}>No</button>
-                    <button class="bg-red-600 text-white font-bold text-center rounded-md col-start-3 py-2" type="submit">Yes</button>
+                    <button class="bg-red-600 text-white font-bold text-center rounded-md col-start-3 py-2" onclick={() => isSubmitting = true} type="submit">Yes</button>
                 </div>
             </div>
         </form>
