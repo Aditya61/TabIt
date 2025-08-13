@@ -76,6 +76,8 @@
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">Login</h1>
 	{:else if page.url.pathname === "/signup"}
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">Sign Up</h1>
+	{:else if page.url.pathname === "/profile"}
+		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">Profile</h1>
 	{:else if page.url.pathname === "/creditors/new"}
 		<h1 class="text-gray-800 font-bold font-sans text-xl text-center">Add New Creditor</h1>
 	{:else if /^\/creditors\/dashboard\/[^/]+$/.test(page.url.pathname)}
@@ -99,7 +101,8 @@
 		<div class="p-4">
 			<h2 class="text-xl font-bold text-center py-2 shadow-sm rounded-md mb-4">Settings</h2>
 			{#if data.user}
-				<a class="text-lg font-semibold" href="/logout">Logout</a>
+				<a class="text-lg font-semibold mb-3" href="/profile" onclick={() => $isSettingsOpen = false}>View Profile</a><br>
+				<a class="text-lg font-semibold mb-3" href="/logout">Logout</a>
 			{/if}
 		</div>
 	</div>

@@ -30,7 +30,7 @@ export const actions = {
         }
 
         // Generate JWT and set it as HTTP-only cookie
-        const token = generateToken({id: user.id, name:user.name, phone: user.phone}, remember)
+        const token = generateToken({id: user.id, name:user.name, phone: user.phone, businessName: user.businessName }, remember)
 
         cookies.set('jwt', token, {
             path: '/',

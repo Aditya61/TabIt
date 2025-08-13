@@ -17,6 +17,7 @@
     });
 
     const creditor = data.creditor;
+    const user = data.user;
     
     // Toggle between credits and payments history
     let visible = "Credits";
@@ -24,6 +25,9 @@
     // Generate message for overall pending and partially paid credits and current outstanding
     function generateMessage() {
         let message = "";
+        if (user.businessName != "") {
+            message += `*${user.businessName}*\n\n`;
+        }
         message += `Credit Report for ${creditor.name}\n\n`;
         const creditString = creditor.credits.map(credit => { if (credit.status != "PAID") { return `${new Date(credit.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})} - ₹ ${credit.amtRemaining}`}}).join('\n');
         message += creditString;
@@ -34,6 +38,9 @@
     // Generate message for individual payments including data from outstanding log
     function generatePaymentMessage(payment) {
         let message = "";
+        if (user.businessName != "") {
+            message += `*${user.businessName}*\n\n`;
+        }
         message += `Payment for ${creditor.name}\n\n`;
         message += `Date: ${new Date(payment.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})}`;
         message += `\n\nPrevious:`.padEnd(25, " ")+ `₹ ${payment.OutstandingLog[0].prevOutstanding}`;

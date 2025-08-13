@@ -4,7 +4,8 @@ import { fail, redirect } from "@sveltejs/kit";
 
 // Loading details of credit including outstanding log
 /** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
+export async function load({ params, locals }) {
+    const user = locals.user;
     const creditId = params.creditId;
     const creditorId = params.id;
 
@@ -51,7 +52,7 @@ export async function load({ params }) {
         return fail(404, {message: "Credit Not Found!"})
     }
 
-    return { credit, creditor };
+    return { user, credit, creditor };
 }
 
 // Handle credit deletion

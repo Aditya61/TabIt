@@ -35,6 +35,13 @@
     </div>
 
     <div class="w-full flex items-center justify-between p-4">
+        <label for="businessName" class="text-lg font-semibold">
+            Business Name:
+        </label>
+        <input id="businessName" class="border-none shadow-md focus:ring-0 focus:shadow-lg rounded-lg w-58" name="businessName" required />
+    </div>
+
+    <div class="w-full flex items-center justify-between p-4">
         <label for="password" class="text-lg font-semibold">
             Password:
         </label>

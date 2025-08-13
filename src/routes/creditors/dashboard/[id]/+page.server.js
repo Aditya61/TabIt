@@ -44,5 +44,5 @@ export async function load({ params, locals }) {
         return fail(404, {message: "Creditor Not Found!"});
     }
 
-    return { creditor };
+    return { user, creditor };
 }

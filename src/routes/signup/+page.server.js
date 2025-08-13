@@ -10,10 +10,15 @@ export const actions = {
         const name = formData.get('name')?.trim();
         const phone = formData.get('phone')?.trim();
         const password = formData.get('password');
+        let businessName = formData.get('businessName');
 
         // Form Data Validation
         if (!name || !phone || !password) {
             return fail(400, {message: "All fields are required!"});
+        }
+
+        if (!businessName) {
+            businessName = "";
         }
 
         const existingUser = await prisma.user.findUnique({ where: { phone } });
@@ -30,7 +35,8 @@ export const actions = {
                 data: {
                     name: name,
                     phone: phone,
-                    password: hashedPass
+                    password: hashedPass,
+                    businessName: businessName
                 }
             });
 

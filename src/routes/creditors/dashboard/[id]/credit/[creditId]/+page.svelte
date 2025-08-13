@@ -17,6 +17,7 @@
         });
     });
 
+    const user = data?.user;
     const credit = data?.credit;
     const name = data?.creditor.name;
     const phone = data?.creditor.phone;
@@ -25,6 +26,9 @@
     // Generate message for whatsapp redirection for a particular credit
     function generateMessage() {
         let message = "";
+        if (user.businessName != "") {
+            message += `*${user.businessName}*\n\n`;
+        }
         message += `Itemized Bill for ${name} \nDate: ${new Date(credit.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})}\n\n`;
         
         let itemString = "";

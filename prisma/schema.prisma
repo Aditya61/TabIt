@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  name      String
-  phone     String     @unique
-  password  String // store hashed
-  creditors Creditor[]
-  createdAt DateTime   @default(now())
+  id           String     @id @default(cuid())
+  name         String
+  phone        String     @unique
+  password     String // store hashed
+  businessName String     @default("")
+  creditors    Creditor[]
+  createdAt    DateTime   @default(now())
 }
 
 model Creditor {
