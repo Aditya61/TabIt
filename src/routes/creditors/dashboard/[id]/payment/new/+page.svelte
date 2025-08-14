@@ -1,11 +1,26 @@
 <script>
+    import { onMount } from 'svelte';
 	import Loader from '$lib/components/Loader.svelte';
     export let form;
 
+    onMount(() => {
+        isSubmitting = false;
+    })
+
     let isSubmitting = false;
+
+    function showLoader(event) {
+        const form = event.target.form;
+
+        if (!form.checkValidity()) {
+            return;
+        }
+
+        isSubmitting = true;
+    }
 </script>
 
-{#if isSubmitting && !form}
+{#if isSubmitting}
     <div class="w-full h-full bg-white/50 flex justify-center items-center top-0 left-0 z-20 absolute">
         <Loader />
     </div>
@@ -31,7 +46,7 @@
         </select>
     </div>
 
-    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10 text-md text-cyan-900 font-semibold" onclick={() => isSubmitting = true} type="submit">Submit</button>
+    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10 text-md text-cyan-900 font-semibold" onclick={showLoader} type="submit">Submit</button>
 </form>
 
 {#if form?.message}

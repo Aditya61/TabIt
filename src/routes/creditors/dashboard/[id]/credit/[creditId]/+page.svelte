@@ -5,6 +5,8 @@
     export let data;
 
     onMount(() => {
+        isSubmitting = false;
+
         const handleBack = (event) => {
             event.preventDefault();
             goto(`/creditors/dashboard/${data?.creditor.id}`);
@@ -50,6 +52,16 @@
     let toggleDeleteConfirmation = false;
 
     let isSubmitting = false;
+
+    function showLoader(event) {
+        const form = event.target.form;
+
+        if (!form.checkValidity()) {
+            return;
+        }
+
+        isSubmitting = true;
+    }
 </script>
 
 {#if isSubmitting}
@@ -66,7 +78,7 @@
                 <h4 class="py-2 text-sm font-medium">Note: Any payment done to this credit won't be redistributed.</h4>
                 <div class="grid grid-cols-3 gap-2">
                     <button class="bg-green-600 text-white font-bold text-center rounded-md col-start-2 py-2" onclick={() => { toggleDeleteConfirmation = false; }}>No</button>
-                    <button class="bg-red-600 text-white font-bold text-center rounded-md col-start-3 py-2" onclick={() => isSubmitting = true} type="submit">Yes</button>
+                    <button class="bg-red-600 text-white font-bold text-center rounded-md col-start-3 py-2" onclick={showLoader} type="submit">Yes</button>
                 </div>
             </div>
         </form>

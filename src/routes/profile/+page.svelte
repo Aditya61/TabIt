@@ -7,9 +7,19 @@
     let businessName = user.businessName;
 
     let isSubmitting = false;
+
+    function showLoader(event) {
+        const form = event.target.form;
+
+        if (!form.checkValidity()) {
+            return;
+        }
+
+        isSubmitting = true;
+    }
 </script>
 
-{#if isSubmitting && !data}
+{#if isSubmitting}
     <div class="w-full h-full bg-white/50 flex justify-center items-center top-0 left-0 z-20 absolute">
         <Loader />
     </div>
@@ -20,7 +30,7 @@
     <h1 class="text-lg font-semibold">{ user.name }</h1>
 </div>
 
-<form method="POST" onsubmit={() => isSubmitting = true}>
+<form method="POST">
     <input class="hidden" name="userId" value={user.id} required />
     <div class="w-full flex items-center justify-between p-4">
         <label for="phone" class="text-lg font-semibold">
@@ -29,5 +39,5 @@
         <input id="phone" class="border-none shadow-md focus:ring-0 focus:shadow-lg rounded-lg w-58" bind:value={businessName} name="businessName" required />
     </div>
 
-    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10 text-md text-cyan-900 font-semibold" type="submit">Save Changes</button>
+    <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10 text-md text-cyan-900 font-semibold" onclick={showLoader} type="submit">Save Changes</button>
 </form>
