@@ -39,11 +39,12 @@
         <label for="method" class="text-lg font-semibold">
             Method:
         </label>
-        <select name="method" id="method" class="border-none shadow-md focus:ring-0 focus:shadow-lg rounded-lg w-58" required>
+        <input id="method" type="text" class="border-none shadow-md focus:ring-0 focus:shadow-lg rounded-lg w-58" name="method" />
+        <!-- <select name="method" id="method" class="border-none shadow-md focus:ring-0 focus:shadow-lg rounded-lg w-58" required>
             <option value="CASH">CASH</option>
             <option value="UPI">UPI</option>
             <option value="CARD">CARD</option>
-        </select>
+        </select> -->
     </div>
 
     <button class="w-full h-[60px] flex justify-evenly items-center bg-slate-50 border-t-1 border-gray-200 fixed bottom-0 z-10 text-md text-cyan-900 font-semibold" onclick={showLoader} type="submit">Submit</button>
