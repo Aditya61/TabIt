@@ -43,7 +43,7 @@
         }
         message += `Payment for ${creditor.name}\n\n`;
         message += `Date: ${new Date(payment.date).toLocaleString("en-US", {dateStyle: "medium", timeStyle: "short"})}`;
-        message += `\n\Method: ${payment.method}`;
+        message += `\nMethod: ${payment.method}`;
         message += `\n\nPrevious:`.padEnd(25, " ")+ `₹ ${payment.OutstandingLog[0].prevOutstanding}`;
         message += `\nPayment:`.padEnd(25, " ")+ `- ₹ ${payment.amount}`;
         message += `\n\nNext Outstanding:`.padEnd(25, " ")+ `₹ ${payment.OutstandingLog[0].nextOutstanding}`;
