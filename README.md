@@ -3,7 +3,7 @@ A full-stack PWA built to help local shops manage customer credits and payments 
 
 ## Live App
 
-Access the app live on [Tabit](tabit-git-main-aditya61s-projects.vercel.app)
+Access the app live on [tabit-sigma.vercel.app](https://tabit-sigma.vercel.app)
 
 ## Overview
 
@@ -27,77 +27,9 @@ Access the app live on [Tabit](tabit-git-main-aditya61s-projects.vercel.app)
 - **Auth**: JWT (with remember-me functionality using cookies)
 - **Deployment**: Vercel (App), Supabase (PostgreSQL)
 
-## Project Structure
-
-- prisma
-    - migrations
-        - 20250702152602_init
-        - migration_lock.toml
-    - schema.prisma
-- src
-    - lib
-        - server
-            - auth.js
-            - authGuard.js
-            - prisma.js
-        - stores
-            - settingsPanel.js
-        - index.js
-    - routes
-        - creditors
-            - dashboard
-                - [id]
-                    - credit
-                        - [creditId]
-                            - +page.server.js
-                            - +page.svelte
-                        - new
-                            - +page.server.js
-                            - +page.svelte
-                    - payment
-                        - new
-                            - +page.server.js
-                            - +page.svelte
-                    - +page.server.js
-                    - +page.svelte
-            - new
-                - +page.server.js
-                - +page.svelte
-            - +page.server.js
-            - +page.svelte
-        - login
-            - +page.server.js
-            - +page.svelte
-        - logout
-            - +page.server.js
-        - offline
-            - +page.svelte
-        - signup
-            - +page.server.js
-            - +page.svelte
-        - +layout.server.js
-        - +layout.svelte
-        - +page.server.js
-        - +page.svelte
-    - app.css
-    - app.html
-    - hooks.server.js
-    - service-worker.js
-    - static
-        - icons
-            - icon-192.png
-            - icon-512.png
-        - favicon.png
-        - manifest.webmanifest
-- package-lock.json
-- package.json
-- svelte.config.js
-- tailwind.config.js
-- vite.config.js
-
 ## Deployment Details
 
-- **Frontend**: [Vercel](tabit-git-main-aditya61s-projects.vercel.app)
+- **Frontend**: Vercel - [tabit-sigma.vercel.app](https://tabit-sigma.vercel.app)
 
 - **Database**: Supabase
 
